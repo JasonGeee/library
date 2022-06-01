@@ -44,12 +44,12 @@ function toggleBlur() {
     const active = document.getElementById("blur");
     blur.addEventListener('click', () => {
         active.classList.toggle('active');
+        // bookButton();
     });
 }
 
-// Function to add user input for books
+// Function to add user input for books and display the form
 function bookButton() {
-    const add_book = document.querySelector(".add-book-btn");
 
 }
 
