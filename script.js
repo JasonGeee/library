@@ -29,12 +29,43 @@ function displayBooks() {
 
     // loop into the library array to add cards
     let index = 0;
+    let index2 = 0;
     myLibrary.forEach(myLibrarys => {
 
         // creates div and adds card class
         const card = document.createElement("div");
         card.classList.add("card");
         books.appendChild(card);
+
+        // loops through object to display onto card
+        for (let key in myLibrarys) {
+            console.log(`${key}: ${myLibrarys[key]}`);
+            const para = document.createElement("p");
+            para.textContent = (`${key}: ${myLibrarys[key]}`);
+            card.appendChild(para);
+        }
+
+        // create button to toggle read or not read
+        const readBtn = document.createElement('button');
+        readBtn.classList.add('read-noread');
+        if (index2.checked == false) {
+            readBtn.textContent = 'Not Read';
+            readBtn.style.backgroundColor = '#f24537';
+        } else {
+            readBtn.textContent = 'Read';
+            readBtn.style.backgroundColor = '#63da63';
+        }
+
+        readBtn.dataset.linkedArray = index2;
+        index2++;
+        card.appendChild(readBtn);
+
+        //add toggle ability to each book 'read' button on click
+        readBtn.addEventListener('click', () => { 
+            index2.checked = !index2.checked; 
+            setData(); 
+            displayBooks();
+        }); 
 
         // create button to remove book
         const removeBookBtn = document.createElement('button');
@@ -55,14 +86,6 @@ function displayBooks() {
             restore();
             displayBooks();
         });
-
-        // loops through object to display onto card
-        for (let key in myLibrarys) {
-            console.log(`${key}: ${myLibrarys[key]}`);
-            const para = document.createElement("p");
-            para.textContent = (`${key}: ${myLibrarys[key]}`);
-            card.appendChild(para);
-        }
     });
 }
 
@@ -82,12 +105,10 @@ function formData() {
     let Title = document.getElementById('Title').value;
     let Author = document.getElementById('Author').value;
     let Pages = document.getElementById('Pages').value;
-    let Read = document.getElementById('Read').value;
+    let Read = document.getElementById('Read').checked;
 
     //if empty, do not allow
-    if ((Title == "") || (Author == "") || (Pages == "") || (Read == "")) {
-        return alert("Must fill out whole form!");
-    }
+    if ((Title == "") || (Author == "") || (Pages == "")) return;
 
     addBookToLibrary(Title, Author, Pages, Read);
 
