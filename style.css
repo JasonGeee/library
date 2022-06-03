@@ -113,27 +113,6 @@ form > div > input {
     border-radius: 3px;
     width: 160px;
 }
-/* checkbox CSS */
-/* form input[type='checkbox'] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    top: 74%;
-    left: 40%;
-    height: 25px;
-    width: 25px;
-    background-color: #ccc;
-}
-
-input:checked ~ .checkmark:after {
-    display: block;
-} */
 
 .submit {
     position: fixed;
@@ -204,6 +183,23 @@ input:checked ~ .checkmark:after {
     padding: 10px;
 }
 
+.read-noread {
+    padding: 7px 24px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-right: 10px;
+    border: 1px solid white;
+    background-color: #000000;
+    color: white;
+}
+
+.read-noread:hover {
+    background: linear-gradient(to bottom, #000001 5%, #100101 5%);
+    box-shadow: 0px 1px 1px -7px #000000, 0px 0px 10px 3px rgba(0,0,0,0.6);
+}
+
 .remove-book {
     box-shadow:inset 0px 1px 0px 0px #f5978e;
 	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
@@ -213,7 +209,6 @@ input:checked ~ .checkmark:after {
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
 	font-size:16px;
 	font-weight:bold;
 	padding:7px 24px;

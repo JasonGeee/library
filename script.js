@@ -1,16 +1,19 @@
+// Array
 let myLibrary = [];
 
-// Object Constructor
-function Book(Title, Author, Pages, Read) {
-    this.Title = Title;
-    this.Author = Author;
-    this.Pages = Pages;
-    this.Read = Read;
+// Class Object
+class Book {
+    constructor(Title, Author, Pages, Read) {
+        this.Title = Title;
+        this.Author = Author;
+        this.Pages = Pages;
+        this.Read = Read;
+    }
 }
 
 // Function to add into array
-function addBookToLibrary(title, author, pages, read) {
-    let book = new Book(title, author, pages, read);
+function addBookToLibrary(Title, Author, Pages, Read) {
+    let book = new Book(Title, Author, Pages, Read);
     myLibrary.push(book);
     setData(); // saves data to local storage
     restore();
@@ -29,7 +32,6 @@ function displayBooks() {
 
     // loop into the library array to add cards
     let index = 0;
-    let index2 = 0;
     myLibrary.forEach(myLibrarys => {
 
         // creates div and adds card class
@@ -48,21 +50,27 @@ function displayBooks() {
         // create button to toggle read or not read
         const readBtn = document.createElement('button');
         readBtn.classList.add('read-noread');
-        if (index2.checked == false) {
-            readBtn.textContent = 'Not Read';
-            readBtn.style.backgroundColor = '#f24537';
-        } else {
-            readBtn.textContent = 'Read';
-            readBtn.style.backgroundColor = '#63da63';
-        }
+        readBtn.textContent = "Toggle Read";
 
-        readBtn.dataset.linkedArray = index2;
-        index2++;
+        // links data attribute of Read to the array and card
+        readBtn.dataset.linkedArray = index;
+        //console.log(readBtn.dataset.linkedArray);
         card.appendChild(readBtn);
-
+        
         //add toggle ability to each book 'read' button on click
         readBtn.addEventListener('click', () => { 
-            index2.checked = !index2.checked; 
+            let readToggle = readBtn.dataset.linkedArray;
+            Book.prototype = Object.create(Book.prototype);
+            console.log("initial value of Read: ", myLibrary[readToggle].Read);
+            const toggleBook = new Book();
+            // checks to see read status of yes or no
+            if (myLibrary[readToggle].Read == "Yes") {
+                toggleBook.Read = "No";
+                myLibrary[readToggle].Read = toggleBook.Read;                
+            } else if (myLibrary[readToggle].Read == "No") {
+                toggleBook.Read = "Yes";
+                myLibrary[readToggle].Read = toggleBook.Read;
+            }
             setData(); 
             displayBooks();
         }); 
@@ -74,7 +82,7 @@ function displayBooks() {
 
         // links data attribute of array to card to remove
         removeBookBtn.dataset.linkedArray = index;
-        index++;
+        //index++;
         card.appendChild(removeBookBtn);
 
         // removes the book from library
@@ -86,6 +94,8 @@ function displayBooks() {
             restore();
             displayBooks();
         });
+
+        index++;
     });
 }
 
@@ -105,10 +115,10 @@ function formData() {
     let Title = document.getElementById('Title').value;
     let Author = document.getElementById('Author').value;
     let Pages = document.getElementById('Pages').value;
-    let Read = document.getElementById('Read').checked;
+    let Read = document.getElementById('Read').value;
 
     //if empty, do not allow
-    if ((Title == "") || (Author == "") || (Pages == "")) return;
+    if ((Title == "") || (Author == "") || (Pages == "") || (Read == "")) return;
 
     addBookToLibrary(Title, Author, Pages, Read);
 
